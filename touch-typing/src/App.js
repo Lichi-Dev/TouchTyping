@@ -1,68 +1,56 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { data } from "./Data/data";
+import Word from "./Components/Word";
+import Timer from "./Components/Timer";
 
-const getCloud = () =>
-  data.split(" ").sort(() => (Math.random() > 0.5 ? 1 : -1));
-
-function Timer(props) {
-  const { correctedWords, startCounting, totalWords } = props;
-  const [timeElapsed, setTimeElapsed] = useState(300);
-  useEffect(() => {
-    if (startCounting) {
-      setInterval(() => {
-        setTimeElapsed((oldTime) => oldTime - 1);
-      }, 1000);
-    }
-  }, [startCounting]);
-
-  const minutes = (300 - timeElapsed) / 60;
-  return (
-    <div>
-      <p>Time: {timeElapsed}secs</p>
-      <p>Speed: {(correctedWords / minutes || 0).toFixed(2)} WPM</p>
-      <p>Accuracy:{(correctedWords / totalWords) * 100 || 0}%</p>
-    </div>
-  );
+function getCloud() {
+  return data.split(" ").sort(() => (Math.random() > 0.5 ? 1 : -1));
 }
-
-function Word(props) {
-  const { text, active, correct } = props;
-  if (correct === true) {
-    return <span className="correct">{text} </span>;
-  }
-  if (correct === false) {
-    return <span className="incorrect">{text} </span>;
-  }
-  if (active) {
-    return <span className="active">{text} </span>;
-  }
-  return <span>{text} </span>;
-}
-
-Word = React.memo(Word);
 
 function App() {
   const [userInput, setUserInput] = useState("");
-  const cloud = useRef(getCloud());
+  const [cloud, setCloud] = useState(getCloud());
   const [activeWordIndex, setActiveWordIndex] = useState(0);
   const [correctWordArray, setCorrectWordArray] = useState([]);
   const [startCounting, setStartCounting] = useState(false);
+  const [totalTime, setTotalTime] = useState(300);
+  const [reset, setReset] = useState(false);
+
+  function onClickReset() {
+    setReset(true);
+    setTotalTime(300);
+    setUserInput("");
+    setActiveWordIndex(0);
+    setCorrectWordArray([]);
+    setStartCounting(false);
+    setCloud(getCloud());
+    setReset(true);
+  }
 
   function processInput(value) {
+    if (activeWordIndex === cloud.length) {
+      //stop
+      return;
+    }
     if (!startCounting) {
       setStartCounting(true);
     }
-
     if (value.endsWith(" ")) {
       // the user has finished this word
+
+      if (activeWordIndex === cloud.length - 1) {
+        setStartCounting(false);
+        setUserInput("Completed");
+      } else {
+        setUserInput("");
+      }
       setActiveWordIndex((index) => index + 1);
-      setUserInput("");
 
       setCorrectWordArray((data) => {
         const word = value.trim();
         const newResult = [...data];
-        newResult[activeWordIndex] = word === cloud.current[activeWordIndex];
+        newResult[activeWordIndex] = word === cloud[activeWordIndex];
         return newResult;
       });
     } else {
@@ -70,15 +58,13 @@ function App() {
     }
   }
   return (
-    <div>
-      <h1>Typing Test</h1>
-      <Timer
-        startCounting={startCounting}
-        correctedWords={correctWordArray.filter(Boolean).length}
-        totalWords={cloud.current.length}
-      />
-      <p>
-        {cloud.current.map((word, index) => {
+    <div className="bg-container">
+      <h1 className="header">
+        Typing <span className="sub-header">Test</span>
+      </h1>
+
+      <p className="word-container">
+        {cloud.map((word, index) => {
           return (
             <Word
               text={word}
@@ -92,7 +78,18 @@ function App() {
         type="text"
         value={userInput}
         onChange={(e) => processInput(e.target.value)}
+        className="input-box"
+        placeholder="Type here..."
       />
+      <Timer
+        startCounting={startCounting}
+        correctedWords={correctWordArray.filter(Boolean).length}
+        totalWords={cloud.length}
+        totalTime={totalTime}
+        reset={reset}
+        setReset={setReset}
+      />
+      <button onClick={onClickReset}>Reset</button>
     </div>
   );
 }

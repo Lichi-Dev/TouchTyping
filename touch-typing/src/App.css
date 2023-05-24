@@ -7,44 +7,59 @@
   color: red;
 }
 .active {
-  font-weight: bold;
-}
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.bg-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #171717;
 }
+.word-container {
+  width: 60%;
+  padding: 10px;
+  font-size: 30px;
+  border: 1px black solid;
+  color: grey;
+}
+.header {
+  color: rgb(112, 109, 109);
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  border-right: 4px solid;
+  padding-right: 10px;
+  animation: blinkingCursor 2s infinite;
+}
+@keyframes blinkingCursor {
+  0% {
+    border-right-color: #da0037;
   }
-  to {
-    transform: rotate(360deg);
+  25% {
+    border-right-color: transparent;
   }
+  50% {
+    border-right-color: #da0037;
+  }
+  75% {
+    border-right-color: transparent;
+  }
+  100% {
+    border-right-color: #da0037;
+  }
+}
+.sub-header {
+  color: #da0037;
+}
+.input-box {
+  width: 60%;
+  height: 50px;
+  background-color: grey;
+  color: white;
+  font-size: 30px;
+  outline: none;
+}
+.input-box::placeholder {
+  color: white;
 }

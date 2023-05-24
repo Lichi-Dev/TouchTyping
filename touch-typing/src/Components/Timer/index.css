@@ -1,0 +1,28 @@
+.timer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+}
+.time {
+  color: #da0037;
+
+  font-size: 30px;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Inconsolata, monospace;
+}
+.speed {
+  color: #da0037;
+
+  font-size: 30px;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Inconsolata, monospace;
+}
+.accuracy {
+  color: #da0037;
+
+  font-size: 30px;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Inconsolata, monospace;
+}
