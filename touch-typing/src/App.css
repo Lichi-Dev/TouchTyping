@@ -73,3 +73,11 @@
   font-size: 40px;
   color: white;
 }
+@media only screen and (max-width: 600px) {
+  .input-box {
+    font-size: 18px;
+  }
+  .word-container {
+    font-size: 18px;
+  }
+}

@@ -26,3 +26,10 @@
   -moz-osx-font-smoothing: grayscale;
   font-family: Inconsolata, monospace;
 }
+@media only screen and (max-width: 600px) {
+  .timer-container {
+    flex-direction: column;
+    width: 60%;
+    align-items: flex-start;
+  }
+}
