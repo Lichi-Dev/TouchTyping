@@ -25,10 +25,10 @@ function App() {
     setCorrectWordArray([]);
     setStartCounting(false);
     setCloud(getCloud());
-    setReset(true);
   }
 
   function processInput(value) {
+    setReset(false);
     if (activeWordIndex === cloud.length) {
       //stop
       return;
@@ -86,8 +86,8 @@ function App() {
         correctedWords={correctWordArray.filter(Boolean).length}
         totalWords={cloud.length}
         totalTime={totalTime}
+        setTotalTime={setTotalTime}
         reset={reset}
-        setReset={setReset}
       />
       <button onClick={onClickReset}>Reset</button>
     </div>

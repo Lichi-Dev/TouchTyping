@@ -10,23 +10,24 @@ function Timer(props) {
       id = setInterval(() => {
         setTimeElapsed((oldTime) => oldTime - 1);
       }, 1000);
-    } else if (reset == true && !startCounting) {
+    } else if (reset && !startCounting) {
       setTimeElapsed(totalTime);
+      clearInterval(id);
     }
     return () => {
       clearInterval(id);
     };
-  }, [startCounting]);
+  }, [startCounting, reset]);
 
   const minutes = (300 - timeElapsed) / 60;
+  console.log(correctedWords);
   return (
     <div className="timer-container">
       <p className="time">{timeElapsed}</p>
-      <p className="speed">{(correctedWords / minutes || 0).toFixed(2)} WPM</p>
-
       <p className="accuracy">
-        Accuracy:{((correctedWords / totalWords) * 100).toFixed(2) || 0}%
+        Accuracy:{((correctedWords / totalWords) * 100).toFixed(0) || 0}%
       </p>
+      <p className="speed">{(correctedWords / minutes || 0).toFixed(0)} WPM</p>
     </div>
   );
 }
