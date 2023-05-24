@@ -22,7 +22,6 @@
   width: 60%;
   padding: 10px;
   font-size: 30px;
-  border: 1px black solid;
   color: grey;
 }
 .header {
@@ -55,11 +54,22 @@
 .input-box {
   width: 60%;
   height: 50px;
-  background-color: grey;
+  border: 2px grey solid;
+  background-color: transparent;
   color: white;
-  font-size: 30px;
+  font-size: 25px;
   outline: none;
+  border-radius: 4px;
 }
 .input-box::placeholder {
+  color: rgb(112, 109, 109);
+}
+.reload-button {
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+}
+.reload-icon {
+  font-size: 40px;
   color: white;
 }

@@ -3,6 +3,8 @@ import "./App.css";
 import { data } from "./Data/data";
 import Word from "./Components/Word";
 import Timer from "./Components/Timer";
+import { AiOutlineReload } from "react-icons/ai";
+import Footer from "./Components/Footer";
 
 function getCloud() {
   return data.split(" ").sort(() => (Math.random() > 0.5 ? 1 : -1));
@@ -79,7 +81,7 @@ function App() {
         value={userInput}
         onChange={(e) => processInput(e.target.value)}
         className="input-box"
-        placeholder="Type here..."
+        placeholder={startCounting ? "" : "Type here to start the timer..."}
       />
       <Timer
         startCounting={startCounting}
@@ -89,7 +91,11 @@ function App() {
         setTotalTime={setTotalTime}
         reset={reset}
       />
-      <button onClick={onClickReset}>Reset</button>
+
+      <button onClick={onClickReset} className="reload-button">
+        <AiOutlineReload className="reload-icon" />
+      </button>
+      <Footer />
     </div>
   );
 }
